@@ -49,8 +49,8 @@ def file_content():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-@test_bp.route('/run-script')
-def run_script():
-    # 파이썬 파일을 백그라운드에서 실행 (비동기 처리)
-    subprocess.Popen(['python3', 'script.py'])
-    return redirect(url_for('index'))
+# @test_bp.route('/run-script')
+# def run_script():
+#     # 파이썬 파일을 백그라운드에서 실행 (비동기 처리)
+#     subprocess.Popen(['python3', 'test_start.py'])
+#     return redirect(url_for('index'))
