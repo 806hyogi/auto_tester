@@ -484,7 +484,8 @@ a {
 }
 
 .project-boxes.jsGridView .project-box-wrapper {
-  width: 33.3%;
+  width: 85%;
+  height: 80%;
 }
 
 .project-boxes.jsListView .project-box {
@@ -570,6 +571,10 @@ a {
 .project-box-wrapper {
   padding: 8px;
   transition: 0.2s;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3개의 열 설정 */
+  gap: 16px; /* 박스 간의 간격 */
+  
 }
 
 .project-btn-more {

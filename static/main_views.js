@@ -102,21 +102,63 @@ function logout() {
 
 /* 프로젝트 블럭 */
 function projectBlock(projects) {
-    const projectListTitle = document.getElementById('project-box-title');
-    const projectListDes = document.getElementById('box-content-des');
-    projectListTitle.innerHTML = '';
-    projectListDes.innerHTML = '';
+    const projectBoxWrapper = document.querySelector('.project-box-wrapper'); // 프로젝트 박스 래퍼
+
+    // 기존 프로젝트 박스 초기화
+    projectBoxWrapper.innerHTML = '';
 
     projects.forEach(project => {
-        const projectItem = document.createElement('div');
-        projectItem.innerHTML = `
-        <strong>${project.name}</strong><br/>
-        <span style="font-size: 14px; font-weight: 300;">${project.description}</span>
+        const projectBox = document.createElement('div');
+        projectBox.className = 'project-box';
+        projectBox.style.backgroundColor = '#fee4cb';
+        
+        projectBox.innerHTML = `
+            <div class="project-box-header">
+                <span class="project-box-time">${formatDate(project.time)}</span>
+                <div class="more-wrapper">
+                    <button class="project-btn-more">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                             stroke-linecap="round" stroke-linejoin="round"
+                             class="feather feather-more-vertical">
+                            <circle cx="12" cy="12" r="1" />
+                            <circle cx="12" cy="5" r="1" />
+                            <circle cx="12" cy="19" r="1" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="project-box-content-header">
+                <p class="box-content-header">
+                    <a href="/test" class="project-box-title" style="text-decoration: none; color: inherit;">${project.name}</a>
+                </p>
+                <p class="box-content-subheader">
+                    <a class="box-content-des" style="text-decoration: none; color: inherit;">${project.description}</a>
+                </p>
+            </div>
+            <div class="box-progress-wrapper">
+                <p class="box-progress-header">진행 상태</p>
+                <div class="box-progress-bar">
+                    <span class="box-progress" style="width: 60%; background-color: #ff942e"></span>
+                </div>
+                <p class="box-progress-percentage">60%</p>
+            </div>
         `;
-        projectListTitle.appendChild(projectItem);
+
+        projectBoxWrapper.appendChild(projectBox);
+        
     });
+   
 }
 
+// 날짜 포맷팅 함수
+function formatDate(dateString) {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', options);
+}
+
+let hasRefreshed = false;
 function fetchProjects(username) {
     fetch(`/get_projects?username=${username}`)
         .then(response => response.json())
@@ -161,6 +203,7 @@ function submitProject(){
         if(data.success){
             alert('프로젝트가 성공적으로 생성되었습니다.');
             closepopenDlg();
+            location.reload(); // 새로고침
         }else{
             alert('오류: ' + data.message);
         }
