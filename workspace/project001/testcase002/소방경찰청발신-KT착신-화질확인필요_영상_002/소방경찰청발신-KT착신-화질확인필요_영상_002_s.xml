@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE scenario SYSTEM "sipp.dtd">
+
+<scenario>
+
+<recv request="INVITE" rrs="true">
+<action>
+<ereg regexp=".*" search_in="hdr" header="From:" assign_to="initFrom"/>
+<ereg regexp=".*" search_in="hdr" header="To:" assign_to="initTo"/>
+</action>
+</recv>
+
+<pause milliseconds="17"/>
+
+<send>
+<![CDATA[
+SIP/2.0 100 Trying
+Call-ID: [call_id]
+Content-Length: 0
+[last_CSeq:]
+From: [$initFrom]
+To: [$initTo]
+[last_Via:]
+
+]]>
+</send>
+
+<pause milliseconds="567"/>
+
+<send>
+<![CDATA[
+SIP/2.0 180 Ringing
+Call-ID: [call_id]
+Contact: <sip:176.0.60.4:5063>
+Content-Length: 0
+[last_CSeq:]
+From: [$initFrom]
+P-Charging-Vector: icid-value=sos.police-8190562;orig-ioi=sos.police;term-ioi=ims.kt.com
+Record-Route: <sip:\x5b2001:e60:ef12:5:0:1:0:60aa]:5060;lr>,<sip:2.2.2.38658.112849.1...23046.12418..@[local_ip]:[local_port];lr;ft=KT_IBCFEFFF9BA84FEFA430E6F70F55B4CFBD35>
+To: [$initTo];tag=[pid]-[call_number]
+[last_Via:]
+
+]]>
+</send>
+
+<pause milliseconds="6380"/>
+
+<send>
+<![CDATA[
+SIP/2.0 200 OK
+Accept-Contact: *;+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel";video
+Allow: INVITE,BYE,CANCEL,ACK,PRACK,UPDATE,INFO,REFER,NOTIFY,MESSAGE,OPTIONS
+Call-ID: [call_id]
+Contact: <sip:GURO_vTAS60_ASM04@176.0.60.4:5063>;+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel";audio;video
+Content-Length: [len]
+Content-Type: application/sdp
+[last_CSeq:]
+From: [$initFrom]
+P-Access-Network-Info: 3GPP-NR-TDD;utran-cell-id-3gpp=45008a0000903054499c
+P-Asserted-Identity: <sip:01029211034@ims.mnc008.mcc450.3gppnetwork.org>,<tel:+821029211034>
+P-Charging-Vector: icid-value=sos.police-8190562;orig-ioi=sos.police;term-ioi=ims.kt.com
+Record-Route: <sip:\x5b2001:e60:ef12:5:0:1:0:60aa]:5060;lr>,<sip:2.2.2.38658.112849.1...23046.12418..@[local_ip]:[local_port];lr;ft=KT_IBCFEFFF9BA84FEFA430E6F70F55B4CFBD35>
+Require: timer
+Session-Expires: 90;refresher=uac
+To: [$initTo];tag=[pid]-[call_number]
+User-Agent: TTA-VoLTE/3.0 SM-N981N/XF1_XE1 Device_Type/Android_Phone KT
+[last_Via:]
+P-Preferred-Service: urn:urn-7:3gpp-service.ims.icsi.mmtel
+P-TTA-VoLTE-Info: avchange
+
+v=0
+o=:01029211034 54486148 1 IN IP6 2001:e60:779f:5ee::1f27:621f
+s=-
+c=IN IP[media_ip_type] [media_ip]
+t=0 0
+m=audio [media_port] RTP/AVP 98 99
+b=AS:49
+b=RS:0
+b=RR:800
+a=rtpmap:98 AMR-WB/16000/1
+a=fmtp:98 mode-set=8; octet-align=1; mode-change-capability=2
+a=rtpmap:99 telephone-event/16000
+a=fmtp:99 0-15
+a=ptime:20
+a=maxptime:60
+a=candidate:1 1 UDP 2130706431 2001:e60:779f:5ee::1f27:621f 49152 typ host
+a=sendrecv
+m=video [media_port+2] RTP/AVP 103
+b=AS:653
+b=RS:0
+b=RR:2500
+a=rtpmap:103 H264/90000
+a=framesize:103 480-640
+a=fmtp:103 packetization-mode=1;profile-level-id=428016;sprop-parameter-sets=Z0LAHtoHgUZA,aM4PyA==
+a=framerate:15
+a=candidate:1 1 UDP 2130706431 2001:e60:779f:5ee::1f27:621f 49154 typ host
+a=sendrecv
+
+]]>
+</send>
+
+<recv request="ACK">
+</recv>
+
+<pause milliseconds="44298"/>
+
+<send retrans="2000">
+<![CDATA[
+BYE [next_url] SIP/2.0
+Call-ID: [call_id]
+Content-Length: 0
+CSeq: [cseq] BYE
+From: [$initTo];tag=[pid]-[call_number]
+Max-Forwards: 69
+Reason: USER;cause=101;text="User triggered";fc=9501
+To: [$initFrom]
+Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+Via: SIP/2.0/UDP \x5b2001:e60:ef12:5:0:1:0:60aa]:5060;branch=z9hG4bKE2E4BAA02F0CFDC16BA27465D3562789
+Via: SIP/2.0/UDP 176.0.60.4:5063;received=176.0.60.4;branch=z9hG4bKb0003c042864935-54530520
+
+]]>
+</send>
+
+<recv response="200">
+</recv>
+
+</scenario>

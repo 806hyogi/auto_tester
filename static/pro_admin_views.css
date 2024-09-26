@@ -1,0 +1,623 @@
+@import 'https://fonts.googleapis.com/css?family=Raleway';
+
+/* 메인 코드 */
+html,
+body {
+    margin: 0px;
+    -webkit-font-smoothing: antialiased;
+}
+
+header{
+    font-family: Raleway;
+    margin: 0 auto;
+    padding: 2.5em 2em;
+    text-align: center;
+    background-color: rgb(52, 58, 64);
+}
+footer {
+    font-family: Raleway;
+    margin: 0 auto;
+    padding: 1.5em 1.5em;
+    text-align: center;
+    background-color: rgb(52, 58, 64);
+    position: fixed; /* 고정 위치 설정 */
+    bottom: 0; /* 화면 하단에 고정 */
+    left: 0; /* 왼쪽 정렬 */
+    right: 0; /* 오른쪽 정렬 */
+}
+
+header span {
+    color: #AAA;
+    font-size: 35px;
+}
+
+footer span {
+    color: #AAA;
+}
+
+div.container {
+    font-family: Raleway;
+    margin: 0 auto;
+    padding: 1.5em 3em;
+    text-align: center;
+}
+
+div.container a {
+    color: #FFF;
+    text-decoration: none;
+    font: 20px Raleway;
+    margin: 0px 10px;
+    padding: 10px 10px;
+    position: relative;
+    z-index: 0;
+    cursor: pointer;
+}
+
+.gray {
+    background: rgb(33, 37, 41);
+}
+
+/* Highlight text out  */
+div.highlightTextOut a {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+div.highlightTextOut a:before,
+div.highlightTextIn a:before {
+    position: absolute;
+    color: #FFF;
+    top: 0px;
+    left: 0px;
+    padding: 10px;
+    overflow: hidden;
+    content: attr(alt);
+    transition: all 0.3s;
+    transform: scale(0.8);
+    opacity: 0;
+}
+
+div.highlightTextOut a:hover:before,
+div.highlightTextIn a:hover:before {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* Highlight text in  */
+div.highlightTextIn a {
+    color: rgb(201, 201, 201);
+}
+
+div.highlightTextIn a:before {
+    transform: scale(1.2);
+}
+
+/* 프로젝트 관리 부분 */
+:root {
+    --bg: #ebf0f7;
+    --header: #fbf4f6;
+    --text: #2e2e2f;
+    --white: #ffffff;
+    --light-grey: #c4cad3;
+    --tag-1: #ceecfd;
+    --tag-1-text: #2e87ba;
+    --tag-2: #d6ede2;
+    --tag-2-text: #13854e;
+    --tag-3: #ceecfd;
+    --tag-3-text: #2d86ba;
+    --tag-4: #f2dcf5;
+    --tag-4-text: #a734ba;
+    --purple: #7784ee;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    color: var(--text);
+}
+
+.app {
+    background-color: #ebf0f7;
+    width: 100%;
+    min-height: 100vh;
+    text-align: center;
+}
+
+h1 {
+    font-size: 30px;
+}
+
+.project {
+    padding: 2rem;
+    max-width: 75%;
+    width: 100%;
+    display: inline-block;
+
+}
+
+.project-info {
+    padding: 2rem 0;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.project-participants {
+    display: flex;
+    align-items: center;
+}
+
+.project-tasks {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    width: 100%;
+    grid-column-gap: 1.5rem;
+}
+
+.project-column-heading {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.project-column-heading__title {
+    font-size: 20px;
+}
+
+.project-column-heading__options {
+    background: transparent;
+    color: var(--light-grey);
+    font-size: 18px;
+    border: 0;
+    cursor: pointer;
+}
+
+
+
+.task {
+    cursor: move;
+    background-color: var(--white);
+    padding: 1rem;
+    border-radius: 8px;
+    width: 100%;
+    box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;
+    margin-bottom: 1rem;
+    border: 3px dashed transparent;
+}
+
+.task:hover {
+    box-shadow: rgba(99, 99, 99, 0.3) 0px 2px 8px 0px;
+    border-color: rgba(162, 179, 207, 0.2) !important;
+}
+
+.task p {
+    font-size: 15px;
+    margin: 1.2rem 0;
+}
+
+.task__tag {
+    border-radius: 100px;
+    padding: 2px 13px;
+    font-size: 12px;
+}
+
+.task__tag--copyright {
+    color: var(--tag-4-text);
+    background-color: var(--tag-4);
+}
+
+.task__tag--design {
+    color: var(--tag-3-text);
+    background-color: var(--tag-3);
+}
+
+.task__tag--illustration {
+    color: var(--tag-2-text);
+    background-color: var(--tag-2);
+}
+
+.task__tags {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.project_name {
+    background: transparent;
+    border: 0;
+}
+
+.task__options {
+    background: transparent;
+    border: 0;
+    color: var(--light-grey);
+    font-size: 17px;
+}
+
+.task__stats {
+    position: relative;
+    width: 100%;
+    color: var(--light-grey);
+    font-size: 12px;
+}
+
+.task__stats span:not(:last-of-type) {
+    margin-right: 1rem;
+}
+
+.task__stats svg {
+    margin-right: 5px;
+}
+
+.task-hover {
+    border: 3px dashed var(--light-grey) !important;
+}
+
+.task-details {
+    width: 24%;
+    border-left: 1px solid #d9e0e9;
+    display: inline-block;
+    height: 100%;
+    vertical-align: top;
+    padding: 3rem 2rem;
+}
+
+.task-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 100rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.task-icon svg {
+    font-size: 12px;
+    color: var(--white);
+}
+
+.task-icon--attachment {
+    background-color: #fba63c;
+}
+
+.task-icon--comment {
+    background-color: #5dc983;
+}
+
+.task-icon--edit {
+    background-color: #7784ee;
+}
+
+@media only screen and (max-width: 1300px) {
+    .project {
+        max-width: 100%;
+    }
+
+    .task-details {
+        width: 100%;
+        display: flex;
+    }
+
+    .tag-progress,
+    .task-activity {
+        flex-basis: 50%;
+        background: var(--white);
+        padding: 1rem;
+        border-radius: 8px;
+        margin: 1rem;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+
+    .project-column:nth-child(2),
+    .project-column:nth-child(3) {
+        display: none;
+    }
+
+    .project-tasks {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .project-column:nth-child(4) {
+        display: none;
+    }
+
+    .project-tasks {
+        grid-template-columns: 1fr;
+    }
+
+    .task-details {
+        flex-wrap: wrap;
+        padding: 3rem 1rem;
+    }
+
+    .tag-progress,
+    .task-activity {
+        flex-basis: 100%;
+    }
+
+    h1 {
+        font-size: 25px;
+    }
+}
+
+/* 링크 색상 (중요하지 않음) */
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+a:hover {
+    color: #6199ff;
+}
+
+/* 테이블 색상 (중요하지 않음) */
+table {
+    width: 80%;
+    margin: 30px auto 10px;
+    border-collapse: collapse;
+}
+
+th {
+    background: #3498db;
+    color: #fff;
+}
+
+td,
+th {
+    border: 1px solid #dbdbdb;
+    padding: 5px 20px;
+    font-size: 12px;
+}
+
+tr:nth-of-type(odd) {
+    background: #eee;
+}
+
+/* 체크박스의 크기 */
+.check {
+    width: 15px;
+    height: 15px;
+}
+
+/* 컬럼의 너비 */
+.select {
+    width: 3%;
+}
+
+.no {
+    width: 15%;
+}
+
+.title {
+    /* 나머지가 자동으로 맞춰집니다. */
+}
+
+.writer {
+    width: 20%;
+}
+
+.date {
+    width: 15%;
+}
+
+/* 컬럼의 정렬 */
+tr td:nth-child(1) {
+    text-align: center;
+}
+
+tr td:nth-child(2) {
+    text-align: center;
+}
+
+tr td:nth-child(3) {
+    text-align: left;
+}
+
+tr td:nth-child(4) {
+    text-align: center;
+}
+
+tr td:nth-child(5) {
+    text-align: center;
+}
+
+tr td:nth-child(6) {
+    text-align: center;
+}
+
+/* 페이징 버튼 */
+.page-box {
+    width: 80%;
+    margin: 5px auto;
+    height: 30px;
+    text-align: center;
+}
+
+.page-box a.btn {
+    display: inline-block;
+    padding: 3px 5px;
+    font-size: 10px;
+    border: 1px solid #dbdbdb;
+    color: #333;
+}
+
+.page-box a.btn.on {
+    background-color: #dbdbdb;
+}
+
+/* 버튼 */
+.button {
+    --primary: #275EFE;
+    --primary-dark: #2055EE;
+    --primary-darkest: #133FC0;
+    --text: #FFFFFF;
+    --text-opacity: 1;
+    --success: #2B3044;
+    --success-scale: .2;
+    --success-opacity: 0;
+    --border-radius: 7;
+    --overflow: hidden;
+    --rotate: 0;
+    --plane-x: 0;
+    --plane-y: 0;
+    --plane-opacity: 1;
+    --left-wing-background: var(--primary);
+    --left-wing-first-x: 0;
+    --left-wing-first-y: 0;
+    --left-wing-second-x: 50;
+    --left-wing-second-y: 0;
+    --left-wing-third-x: 0;
+    --left-wing-third-y: 100;
+    --left-body-background: var(--primary);
+    --left-body-first-x: 50;
+    --left-body-first-y: 0;
+    --left-body-second-x: 50;
+    --left-body-second-y: 100;
+    --left-body-third-x: 0;
+    --left-body-third-y: 100;
+    --right-wing-background: var(--primary);
+    --right-wing-first-x: 50;
+    --right-wing-first-y: 0;
+    --right-wing-second-x: 100;
+    --right-wing-second-y: 0;
+    --right-wing-third-x: 100;
+    --right-wing-third-y: 100;
+    --right-body-background: var(--primary);
+    --right-body-first-x: 50;
+    --right-body-first-y: 0;
+    --right-body-second-x: 50;
+    --right-body-second-y: 100;
+    --right-body-third-x: 100;
+    --right-body-third-y: 100;
+    display: block;
+    cursor: pointer;
+    position: relative;
+    border: 0;
+    padding: 8px 0;
+    min-width: 100px;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 50px;
+    line-height: 24px;
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 14px;
+    background: none;
+    outline: none;
+    color: var(--text);
+    transform: rotate(calc(var(--rotate) * 1deg)) translateZ(0);
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.button .left,
+.button .right {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    opacity: var(--plane-opacity);
+    transform: translate(calc(var(--plane-x) * 1px), calc(var(--plane-y) * 1px)) translateZ(0);
+}
+
+.button .left:before,
+.button .left:after,
+.button .right:before,
+.button .right:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: calc(var(--border-radius) * 1px);
+    transform: translate(var(--x, 0.4%), var(--y, 0)) translateZ(0);
+    z-index: var(--z-index, 2);
+    background: var(--background, var(--left-wing-background));
+    -webkit-clip-path: polygon(calc(var(--first-x, var(--left-wing-first-x)) * 1%) calc(var(--first-y, var(--left-wing-first-y)) * 1%), calc(var(--second-x, var(--left-wing-second-x)) * 1%) calc(var(--second-y, var(--left-wing-second-y)) * 1%), calc(var(--third-x, var(--left-wing-third-x)) * 1%) calc(var(--third-y, var(--left-wing-third-y)) * 1%));
+    clip-path: polygon(calc(var(--first-x, var(--left-wing-first-x)) * 1%) calc(var(--first-y, var(--left-wing-first-y)) * 1%), calc(var(--second-x, var(--left-wing-second-x)) * 1%) calc(var(--second-y, var(--left-wing-second-y)) * 1%), calc(var(--third-x, var(--left-wing-third-x)) * 1%) calc(var(--third-y, var(--left-wing-third-y)) * 1%));
+}
+
+.button .left:after {
+    --x: 0;
+    --z-index: 1;
+    --background: var(--left-body-background);
+    --first-x: var(--left-body-first-x);
+    --first-y: var(--left-body-first-y);
+    --second-x: var(--left-body-second-x);
+    --second-y: var(--left-body-second-y);
+    --third-x: var(--left-body-third-x);
+    --third-y: var(--left-body-third-y);
+}
+
+.button .right:before {
+    --x: -.4%;
+    --z-index: 2;
+    --background: var(--right-wing-background);
+    --first-x: var(--right-wing-first-x);
+    --first-y: var(--right-wing-first-y);
+    --second-x: var(--right-wing-second-x);
+    --second-y: var(--right-wing-second-y);
+    --third-x: var(--right-wing-third-x);
+    --third-y: var(--right-wing-third-y);
+}
+
+.button .right:after {
+    --x: 0;
+    --z-index: 1;
+    --background: var(--right-body-background);
+    --first-x: var(--right-body-first-x);
+    --first-y: var(--right-body-first-y);
+    --second-x: var(--right-body-second-x);
+    --second-y: var(--right-body-second-y);
+    --third-x: var(--right-body-third-x);
+    --third-y: var(--right-body-third-y);
+}
+
+.button span {
+    display: block;
+    position: relative;
+    z-index: 4;
+    opacity: var(--text-opacity);
+}
+
+.button span.success {
+    z-index: 0;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 8px;
+    transform: rotate(calc(var(--rotate) * -1deg)) scale(var(--success-scale)) translateZ(0);
+    opacity: var(--success-opacity);
+    color: var(--success);
+}
+
+html {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+}
+
+* {
+    box-sizing: inherit;
+}
+
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+

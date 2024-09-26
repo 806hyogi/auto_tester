@@ -1,0 +1,142 @@
+index[0]
+
+SIP/2.0 183 Ringing
+Accept-Contact: *;+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel"
+Allow: INVITE,BYE,CANCEL,ACK,PRACK,UPDATE,INFO,REFER,NOTIFY,MESSAGE,OPTIONS
+Call-ID: 1-18813@10.0.2.4
+Contact: <sip:10.0.2.15:33333;transport=UDP>
+Content-Length: 0
+Content-Type: application/sdp
+CSeq: 1 INVITE
+From:  <sip:01022332221@lte-lguplus.co.kr>;tag=18813-1
+P-Charging-Vector: icid-value="pcscf1.lte-lguplus.co.kr-1767424029";orig-ioi="lte-lguplus.co.kr"
+Record-Route: <sip:10.0.2.15:33333;lr>
+To:  <tel:+82-1022335551>;tag=23028-1
+Via: SIP/2.0/UDP 10.0.2.4:33330;branch=z9hG4bK-18813-1-0
+
+
+index[1]
+
+SIP/2.0 200 OK
+Accept-Contact: *;+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel";require;explicit
+Allow: INVITE,BYE,CANCEL,ACK,PRACK,UPDATE,INFO,REFER,NOTIFY,MESSAGE,OPTIONS
+Call-ID: 1-18813@10.0.2.4
+Contact: <sip:10.0.2.15:33333;transport=UDP>
+Content-Length:   610
+Content-Type: application/sdp
+CSeq: 1 INVITE
+From:  <sip:01022332221@lte-lguplus.co.kr>;tag=18813-1
+P-Charging-Vector: icid-value="pcscf1.lte-lguplus.co.kr-1767424029";orig-ioi="lte-lguplus.co.kr"
+Record-Route: <sip:10.0.2.15:33333;lr>
+Require: timer
+Session-Expires: 100;refresher=uac
+Supported: timer
+To:  <tel:+82-1022335551>;tag=23028-1
+User-Agent: KT-client/VoLTE+PSVT ;LG-F320K;Device_Type=Android_Phone;Net_Type=LTE;SW_Ver=F320K21u
+Via: SIP/2.0/UDP 10.0.2.4:33330;branch=z9hG4bK-18813-1-0
+P-TTA-VoLTE-Info: avchange
+
+v=0
+o=- 1235902464 1235902465 IN IP4 192.168.4.11
+s=-
+c=IN IP4 10.0.2.15
+t=0 0
+m=audio 6000 RTP/AVP 100 107 96 101
+b=AS:41
+b=RS:0
+b=RR:1000
+a=rtpmap:100 AMR-WB/16000/1
+a=fmtp:100 octet-align=1; mode-change-capability=2
+a=rtpmap:107 telephone-event/16000
+a=fmtp:107 0-15
+a=rtpmap:96 AMR/8000/1
+a=fmtp:96 mode-set=7; octet-align=1; mode-change-capability=2
+a=rtpmap:101 telephone-event/8000
+a=fmtp:101 0-15
+a=sendrecv
+a=ptime:20
+a=maxptime:240
+m=video 6002 RTP/AVP 34
+b=AS:768
+b=RS:0
+b=RR:3000
+a=rtpmap:34 H263/90000
+a=fmtp:34 profile=0; level=10
+a=framerate:15
+a=framesize:34 176-14
+
+index[2]
+
+SIP/2.0 408 Request Timeout
+Call-ID: 1-18813@10.0.2.4
+Contact: <sip:10.0.2.15:33333;transport=UDP>
+Content-Length: 0
+CSeq: 2 INVITE
+From:  <sip:01022332221@lte-lguplus.co.kr>;tag=18813-1
+Require: timer
+To:  <tel:+82-1022335551>;tag=23028-1
+Via: SIP/2.0/UDP 10.0.2.4:33330;branch=z9hG4bK-18813-1-6
+
+
+index[3]
+
+SIP/2.0 200 OK
+Accept-Contact: *;+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel";require;explicit
+Allow: INVITE,BYE,CANCEL,ACK,PRACK,UPDATE,INFO,REFER,NOTIFY,MESSAGE,OPTIONS
+Call-ID: 1-18813@10.0.2.4
+Contact: <sip:10.0.2.15:33333;transport=UDP>
+Content-Length:   610
+Content-Type: application/sdp
+CSeq: 3 INVITE
+From:  <sip:01022332221@lte-lguplus.co.kr>;tag=18813-1
+P-Charging-Vector: icid-value="pcscf1.lte-lguplus.co.kr-1767424029";orig-ioi="lte-lguplus.co.kr"
+Record-Route: <sip:10.0.2.15:33333;lr>
+Require: timer
+Session-Expires: 100;refresher=uac
+Supported: timer
+To:  <tel:+82-1022335551>;tag=23028-1
+User-Agent: KT-client/VoLTE+PSVT ;LG-F320K;Device_Type=Android_Phone;Net_Type=LTE;SW_Ver=F320K21u
+Via: SIP/2.0/UDP 10.0.2.4:33330;branch=z9hG4bK-18813-1-10
+P-TTA-VoLTE-Info: avchange
+
+v=0
+o=- 1235902464 1235902465 IN IP4 192.168.4.11
+s=-
+c=IN IP4 10.0.2.15
+t=0 0
+m=audio 6000 RTP/AVP 100 107 96 101
+b=AS:41
+b=RS:0
+b=RR:1000
+a=rtpmap:100 AMR-WB/16000/1
+a=fmtp:100 octet-align=1; mode-change-capability=2
+a=rtpmap:107 telephone-event/16000
+a=fmtp:107 0-15
+a=rtpmap:96 AMR/8000/1
+a=fmtp:96 mode-set=7; octet-align=1; mode-change-capability=2
+a=rtpmap:101 telephone-event/8000
+a=fmtp:101 0-15
+a=sendrecv
+a=ptime:20
+a=maxptime:240
+m=video 6002 RTP/AVP 34
+b=AS:768
+b=RS:0
+b=RR:3000
+a=rtpmap:34 H263/90000
+a=fmtp:34 profile=0; level=10
+a=framerate:15
+a=framesize:34 176-14
+
+index[4]
+
+BYE sip:180.210.197.198:5060 SIP/2.0
+Call-ID: 1-18813@10.0.2.4
+Content-Length: 0
+CSeq: 4 BYE
+From:  <tel:+82-1022335551>;tag=23028-1
+Max-Forwards: 70
+To:  <sip:01022332221@lte-lguplus.co.kr>;tag=18813-1
+Via: SIP/2.0/UDP 10.0.2.15:33333;branch=z9hG4bK-23028-1-12
+
+

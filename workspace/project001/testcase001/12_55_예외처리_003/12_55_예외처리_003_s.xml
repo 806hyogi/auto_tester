@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE scenario SYSTEM "sipp.dtd">
+
+<scenario>
+
+<recv request="INVITE" rrs="true">
+<action>
+<ereg regexp=".*" search_in="hdr" header="From:" assign_to="initFrom"/>
+<ereg regexp=".*" search_in="hdr" header="To:" assign_to="initTo"/>
+</action>
+</recv>
+
+<send>
+<![CDATA[
+SIP/2.0 183 Ringing
+Accept-Contact: *;+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel"
+Allow: INVITE,BYE,CANCEL,ACK,PRACK,UPDATE,INFO,REFER,NOTIFY,MESSAGE,OPTIONS
+Call-ID: [call_id]
+Contact: <sip:[local_ip]:[local_port];transport=UDP>
+Content-Length: 0
+Content-Type: application/sdp
+[last_CSeq:]
+From: [$initFrom]
+P-Charging-Vector: icid-value="pcscf1.lte-lguplus.co.kr-1767424029";orig-ioi="lte-lguplus.co.kr"
+Record-Route: <sip:[local_ip]:[local_port];lr>
+To: [$initTo];tag=[pid]-[call_number]
+[last_Via:]
+
+
+]]>
+</send>
+
+<pause milliseconds="502"/>
+
+<send>
+<![CDATA[
+SIP/2.0 200 OK
+Accept-Contact: *;+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel";require;explicit
+Allow: INVITE,BYE,CANCEL,ACK,PRACK,UPDATE,INFO,REFER,NOTIFY,MESSAGE,OPTIONS
+Call-ID: [call_id]
+Contact: <sip:[local_ip]:[local_port];transport=UDP>
+Content-Length: [len]
+Content-Type: application/sdp
+[last_CSeq:]
+From: [$initFrom]
+P-Charging-Vector: icid-value="pcscf1.lte-lguplus.co.kr-1767424029";orig-ioi="lte-lguplus.co.kr"
+Record-Route: <sip:[local_ip]:[local_port];lr>
+Require: timer
+Session-Expires: 100;refresher=uac
+Supported: timer
+To: [$initTo];tag=[pid]-[call_number]
+User-Agent: KT-client/VoLTE+PSVT ;LG-F320K;Device_Type=Android_Phone;Net_Type=LTE;SW_Ver=F320K21u
+[last_Via:]
+P-TTA-VoLTE-Info: avchange
+
+v=0
+o=- 1235902464 1235902465 IN IP4 192.168.4.11
+s=-
+c=IN IP[media_ip_type] [media_ip]
+t=0 0
+m=audio [media_port] RTP/AVP 100 107 96 101
+b=AS:41
+b=RS:0
+b=RR:1000
+a=rtpmap:100 AMR-WB/16000/1
+a=fmtp:100 octet-align=1; mode-change-capability=2
+a=rtpmap:107 telephone-event/16000
+a=fmtp:107 0-15
+a=rtpmap:96 AMR/8000/1
+a=fmtp:96 mode-set=7; octet-align=1; mode-change-capability=2
+a=rtpmap:101 telephone-event/8000
+a=fmtp:101 0-15
+a=sendrecv
+a=ptime:20
+a=maxptime:240
+m=video [media_port+2] RTP/AVP 34
+b=AS:768
+b=RS:0
+b=RR:3000
+a=rtpmap:34 H263/90000
+a=fmtp:34 profile=0; level=10
+a=framerate:15
+a=framesize:34 176-14
+
+]]>
+</send>
+
+<recv request="ACK">
+</recv>
+
+<recv request="INVITE">
+</recv>
+
+<send>
+<![CDATA[
+SIP/2.0 408 Request Timeout
+Call-ID: [call_id]
+Contact: <sip:[local_ip]:[local_port];transport=UDP>
+Content-Length: 0
+[last_CSeq:]
+From: [$initFrom]
+Require: timer
+To: [$initTo];tag=[pid]-[call_number]
+[last_Via:]
+
+
+]]>
+</send>
+
+<recv request="ACK">
+</recv>
+
+<recv request="INVITE">
+</recv>
+
+<send>
+<![CDATA[
+SIP/2.0 200 OK
+Accept-Contact: *;+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel";require;explicit
+Allow: INVITE,BYE,CANCEL,ACK,PRACK,UPDATE,INFO,REFER,NOTIFY,MESSAGE,OPTIONS
+Call-ID: [call_id]
+Contact: <sip:[local_ip]:[local_port];transport=UDP>
+Content-Length: [len]
+Content-Type: application/sdp
+[last_CSeq:]
+From: [$initFrom]
+P-Charging-Vector: icid-value="pcscf1.lte-lguplus.co.kr-1767424029";orig-ioi="lte-lguplus.co.kr"
+Record-Route: <sip:[local_ip]:[local_port];lr>
+Require: timer
+Session-Expires: 100;refresher=uac
+Supported: timer
+To: [$initTo];tag=[pid]-[call_number]
+User-Agent: KT-client/VoLTE+PSVT ;LG-F320K;Device_Type=Android_Phone;Net_Type=LTE;SW_Ver=F320K21u
+[last_Via:]
+P-TTA-VoLTE-Info: avchange
+
+v=0
+o=- 1235902464 1235902465 IN IP4 192.168.4.11
+s=-
+c=IN IP[media_ip_type] [media_ip]
+t=0 0
+m=audio [media_port] RTP/AVP 100 107 96 101
+b=AS:41
+b=RS:0
+b=RR:1000
+a=rtpmap:100 AMR-WB/16000/1
+a=fmtp:100 octet-align=1; mode-change-capability=2
+a=rtpmap:107 telephone-event/16000
+a=fmtp:107 0-15
+a=rtpmap:96 AMR/8000/1
+a=fmtp:96 mode-set=7; octet-align=1; mode-change-capability=2
+a=rtpmap:101 telephone-event/8000
+a=fmtp:101 0-15
+a=sendrecv
+a=ptime:20
+a=maxptime:240
+m=video [media_port+2] RTP/AVP 34
+b=AS:768
+b=RS:0
+b=RR:3000
+a=rtpmap:34 H263/90000
+a=fmtp:34 profile=0; level=10
+a=framerate:15
+a=framesize:34 176-14
+
+]]>
+</send>
+
+<recv request="ACK">
+</recv>
+
+<pause milliseconds="2009"/>
+
+<send retrans="2000">
+<![CDATA[
+BYE [next_url] SIP/2.0
+Call-ID: [call_id]
+Content-Length: 0
+CSeq: [cseq] BYE
+From: [$initTo];tag=[pid]-[call_number]
+Max-Forwards: 70
+To: [$initFrom]
+Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+
+
+]]>
+</send>
+
+<recv response="200">
+</recv>
+
+</scenario>

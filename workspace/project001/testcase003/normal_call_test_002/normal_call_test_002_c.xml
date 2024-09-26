@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE scenario SYSTEM "sipp.dtd">
+
+<scenario>
+
+<send retrans="2000">
+<![CDATA[
+INVITE sip:01012341001@ksk2.com SIP/2.0
+Accept-Contact: *;description="AT"
+Allow: ACK,BYE,CANCEL,INFO,INVITE,MESSAGE,NOTIFY,OPTIONS,PRACK,REGISTER,REFER,SUBSCRIBE,UPDATE
+Call-ID: [call_id]
+Contact: <sip:[local_ip]:[local_port]>
+Content-Length: [len]
+Content-Type: application/sdp
+CSeq: [cseq] INVITE
+From: <sip:01012341001@lte-lguplus.co.kr>;tag=[pid]-[call_number]
+Max-Forwards: 70
+Min-SE: 90
+P-Access-Network-Info: 3GPP-E-UTRAN-FDD;utran-cell-id-3gpp=45006014e0013101
+P-Asserted-Identity: <sip:01012341001@lte-lguplus.co.kr>
+P-Charging-Vector: icid-value="1-1017664@10.0.1.71";orig-ioi="lte-lguplus.co.kr"
+Privacy: none
+Session-Expires: 180;refresher=uac
+Supported: timer
+To: <tel:01012341001;phone-context=lte-lguplus.co.kr>
+User-Agent: TTA-VoLTE
+Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+P-Early-Media: supported
+P-TTA-VoLTE-Info: avchange
+P-LGUplus-MMTEL-Info: m_convert
+
+v=0
+o=LGU+IBCF 1235902464 1235902465 IN IP4 10.0.1.71
+s=-
+c=IN IP[media_ip_type] [media_ip]
+t=0 0
+a=rtcp-xr:rcvr-rtt=all:10000 stat-summary=loss,dup,jitt,TTL voip-metrics
+m=audio [media_port] RTP/AVP 96 110 18 101
+a=rtpmap:96 AMR/8000/1
+a=fmtp:96 octet-align=1; mode-change-capability=2
+a=rtpmap:110 EVS/16000
+a=fmtp:110 br=9.6-24.4;bw=nb-swb
+a=fmtp:18 annexb=yes
+a=rtpmap:101 telephone-event/8000
+a=rtcp-fb:* ccm tmmbr
+
+]]>
+<action>
+<ereg regexp=".*" search_in="hdr" header="From:" assign_to="initFrom"/>
+<ereg regexp=".*" search_in="hdr" header="To:" assign_to="initTo"/>
+<ereg regexp="[[:digit:]]{1,}" search_in="hdr" header="CSeq:" assign_to="inviteCSeq"/>
+</action>
+</send>
+
+<recv response="100">
+</recv>
+
+<recv response="180" rrs="true">
+</recv>
+
+<recv response="200" rrs="true">
+</recv>
+
+<send>
+<![CDATA[
+ACK [next_url] SIP/2.0
+Call-ID: [call_id]
+Content-Length: 0
+CSeq: [$inviteCSeq] ACK
+From: [$initFrom]
+Max-Forwards: 70
+To: [$initTo][peer_tag_param]
+Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+
+
+]]>
+</send>
+
+<pause milliseconds="44999"/>
+
+<send retrans="2000">
+<![CDATA[
+UPDATE [next_url] SIP/2.0
+Call-ID: [call_id]
+Contact: <sip:[local_ip]:[local_port]>
+Content-Length: 0
+CSeq: [cseq] UPDATE
+From: [$initFrom]
+Max-Forwards: 70
+Session-Expires: 90;refresher=uac
+Supported: timer
+To: [$initTo][peer_tag_param]
+Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+
+
+]]>
+</send>
+
+<recv response="200">
+</recv>
+
+<pause milliseconds="15008"/>
+
+<send retrans="2000">
+<![CDATA[
+BYE [next_url] SIP/2.0
+Call-ID: [call_id]
+Content-Length: 0
+CSeq: [cseq] BYE
+From: [$initFrom]
+Max-Forwards: 70
+P-Access-Network-Info: 3GPP-E-UTRAN-FDD;utran-cell-id-3gpp=45006425b215bf04
+Reason: Q.850;cause=102;text="rtp_timeout"
+To: [$initTo][peer_tag_param]
+Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+
+
+]]>
+</send>
+
+<recv response="200">
+</recv>
+
+</scenario>

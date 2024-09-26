@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE scenario SYSTEM "sipp.dtd">
+
+<scenario>
+
+<send retrans="2000">
+<![CDATA[
+INVITE tel:+821022335551 SIP/2.0
+Accept-Contact: *;+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel"
+Allow: INVITE,BYE,CANCEL,ACK,PRACK,UPDATE,INFO,REFER,NOTIFY,MESSAGE,OPTIONS
+Call-ID: [call_id]
+Contact: <sip:180.210.197.198:5060>
+Content-Length: [len]
+Content-Type: application/sdp
+CSeq: [cseq] INVITE
+From: <sip:01022332221@lte-lguplus.co.kr>;tag=[pid]-[call_number]
+Max-Forwards: 69
+P-Asserted-Identity: <sip:01022332221@lte-lguplus.co.kr>
+P-Charging-Vector: icid-value="pcscf1.lte-lguplus.co.kr-1767424029";orig-ioi="lte-lguplus.co.kr"
+Session-Expires: 100;refresher=uac
+Supported: 100rel, timer
+To: <tel:+82-1022335551>
+User-Agent: TTA-VoLTE/1.0 LG-F520L/F520L10d Device_Type/Android_Phone LGU
+Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+P-TTA-VoLTE-Info: avchange
+
+v=0
+o=LGU+IBCF 1235902464 1235902465 IN IP4 180.210.197.166
+s=-
+c=IN IP[media_ip_type] [media_ip]
+t=0 0
+m=audio [media_port] RTP/AVP 100 107 96 101
+b=AS:41
+b=RS:0
+b=RR:1000
+a=rtpmap:100 AMR-WB/16000/1
+a=fmtp:100 octet-align=1; mode-change-capability=2
+a=rtpmap:107 telephone-event/16000
+a=fmtp:107 0-15
+a=rtpmap:96 AMR/8000/1
+a=fmtp:96 octet-align=1; mode-change-capability=2
+a=rtpmap:101 telephone-event/8000
+a=fmtp:101 0-15
+a=sendrecv
+a=ptime:20
+a=maxptime:240
+m=video [media_port+2] RTP/AVP 34
+b=AS:768
+b=RS:0
+b=RR:3000
+a=rtpmap:34 H263/90000
+a=fmtp:34 profile=0; level=10
+a=framerate:15
+a=framesize:34 176-14
+
+]]>
+<action>
+<ereg regexp=".*" search_in="hdr" header="From:" assign_to="initFrom"/>
+<ereg regexp=".*" search_in="hdr" header="To:" assign_to="initTo"/>
+<ereg regexp="[[:digit:]]{1,}" search_in="hdr" header="CSeq:" assign_to="inviteCSeq"/>
+</action>
+</send>
+
+<recv response="183" rrs="true">
+</recv>
+
+<recv response="200" rrs="true">
+</recv>
+
+<pause milliseconds="46"/>
+
+<send>
+<![CDATA[
+ACK [next_url] SIP/2.0
+Call-ID: [call_id]
+Contact: <sip:180.210.197.198:5060>;video;+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel"
+Content-Length: 0
+CSeq: [$inviteCSeq] ACK
+From: [$initFrom]
+Max-Forwards: 69
+Route: <sip:[remote_ip]:[remote_port];lr>
+To: [$initTo][peer_tag_param]
+Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+
+
+]]>
+</send>
+
+<pause milliseconds="1021"/>
+
+<send retrans="2000">
+<![CDATA[
+INVITE [next_url] SIP/2.0
+Accept-Contact: *;+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel"
+Allow: INVITE,BYE,CANCEL,ACK,PRACK,UPDATE,INFO,REFER,NOTIFY,MESSAGE,OPTIONS
+Call-ID: [call_id]
+Contact: <sip:180.210.197.198:5060>
+Content-Length: [len]
+Content-Type: application/sdp
+CSeq: [cseq] INVITE
+From: [$initFrom]
+Max-Forwards: 69
+P-Asserted-Identity: <sip:01022332221@lte-lguplus.co.kr>
+P-Charging-Vector: icid-value="pcscf1.lte-lguplus.co.kr-1767424029";orig-ioi="lte-lguplus.co.kr"
+Route: <sip:[remote_ip]:[remote_port];lr>
+Session-Expires: 100;refresher=uac
+Supported: 100rel,timer
+To: [$initTo][peer_tag_param]
+User-Agent: TTA-VoLTE/1.0 LG-F520L/F520L10d Device_Type/Android_Phone LGU
+Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+P-TTA-VoLTE-Info: avchange
+
+v=0
+o=LGU+IBCF 1235902464 1235902465 IN IP4 180.210.197.166
+s=-
+c=IN IP[media_ip_type] [media_ip]
+t=0 0
+m=audio [media_port] RTP/AVP 100 107 96 101
+b=AS:41
+b=RS:0
+b=RR:1000
+a=rtpmap:100 AMR-WB/16000/1
+a=fmtp:100 octet-align=1; mode-change-capability=2
+a=rtpmap:107 telephone-event/16000
+a=fmtp:107 0-15
+a=rtpmap:96 AMR/8000/1
+a=fmtp:96 octet-align=1; mode-change-capability=2
+a=rtpmap:101 telephone-event/8000
+a=fmtp:101 0-15
+a=sendrecv
+a=ptime:20
+a=maxptime:240
+
+]]>
+<action>
+<ereg regexp="[[:digit:]]{1,}" search_in="hdr" header="CSeq:" assign_to="inviteCSeq"/>
+</action>
+</send>
+
+<recv response="408">
+</recv>
+
+<send>
+<![CDATA[
+ACK [next_url] SIP/2.0
+Call-ID: [call_id]
+Content-Length: 0
+CSeq: [$inviteCSeq] ACK
+From: [$initFrom]
+Max-Forwards: 69
+Route: <sip:[remote_ip]:[remote_port];lr>
+To: [$initTo][peer_tag_param]
+Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch-2]
+
+
+]]>
+</send>
+
+<pause milliseconds="2042"/>
+
+<send retrans="2000">
+<![CDATA[
+INVITE [next_url] SIP/2.0
+Accept-Contact: *;+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel"
+Allow: INVITE,BYE,CANCEL,ACK,PRACK,UPDATE,INFO,REFER,NOTIFY,MESSAGE,OPTIONS
+Call-ID: [call_id]
+Contact: <sip:180.210.197.198:5060>
+Content-Length: [len]
+Content-Type: application/sdp
+CSeq: [cseq] INVITE
+From: [$initFrom]
+Max-Forwards: 69
+P-Asserted-Identity: <sip:01022332221@lte-lguplus.co.kr>
+P-Charging-Vector: icid-value="pcscf1.lte-lguplus.co.kr-1767424029";orig-ioi="lte-lguplus.co.kr"
+Route: <sip:[remote_ip]:[remote_port];lr>
+Session-Expires: 100;refresher=uac
+Supported: 100rel,timer
+To: [$initTo][peer_tag_param]
+User-Agent: TTA-VoLTE/1.0 LG-F520L/F520L10d Device_Type/Android_Phone LGU
+Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+P-TTA-VoLTE-Info: avchange
+
+v=0
+o=LGU+IBCF 1235902464 1235902465 IN IP4 180.210.197.166
+s=-
+c=IN IP[media_ip_type] [media_ip]
+t=0 0
+m=audio [media_port] RTP/AVP 100 107 96 101
+b=AS:41
+b=RS:0
+b=RR:1000
+a=rtpmap:100 AMR-WB/16000/1
+a=fmtp:100 octet-align=1; mode-change-capability=2
+a=rtpmap:107 telephone-event/16000
+a=fmtp:107 0-15
+a=rtpmap:96 AMR/8000/1
+a=fmtp:96 octet-align=1; mode-change-capability=2
+a=rtpmap:101 telephone-event/8000
+a=fmtp:101 0-15
+a=sendrecv
+a=ptime:20
+a=maxptime:240
+m=video [media_port+2] RTP/AVP 34
+b=AS:768
+b=RS:0
+b=RR:3000
+a=rtpmap:34 H263/90000
+a=fmtp:34 profile=0; level=10
+a=framerate:15
+a=framesize:34 176-14
+
+]]>
+<action>
+<ereg regexp="[[:digit:]]{1,}" search_in="hdr" header="CSeq:" assign_to="inviteCSeq"/>
+</action>
+</send>
+
+<recv response="200">
+</recv>
+
+<pause milliseconds="49"/>
+
+<send>
+<![CDATA[
+ACK [next_url] SIP/2.0
+Call-ID: [call_id]
+Contact: <sip:180.210.197.198:5060>;video;+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel"
+Content-Length: 0
+CSeq: [$inviteCSeq] ACK
+From: [$initFrom]
+Max-Forwards: 69
+Route: <sip:[remote_ip]:[remote_port];lr>
+To: [$initTo][peer_tag_param]
+Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+
+
+]]>
+</send>
+
+<recv request="BYE">
+</recv>
+
+<send>
+<![CDATA[
+SIP/2.0 200 OK
+Call-ID: [call_id]
+Contact: <sip:180.210.197.198:5060>
+Content-Length: 0
+[last_CSeq:]
+From: [$initTo][peer_tag_param]
+Max-Forwards: 70
+To: [$initFrom]
+[last_Via:]
+
+
+]]>
+</send>
+
+</scenario>

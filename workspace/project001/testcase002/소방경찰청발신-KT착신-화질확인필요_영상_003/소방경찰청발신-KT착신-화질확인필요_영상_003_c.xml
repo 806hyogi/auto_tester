@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE scenario SYSTEM "sipp.dtd">
+
+<scenario>
+
+<send retrans="2000">
+<![CDATA[
+INVITE tel:+82-1029211034 SIP/2.0
+Accept-Contact: *;+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel";video
+Allow: UPDATE
+Call-ID: [call_id]
+Contact: <sip:[local_ip]:[local_port];transport=UDP>
+Content-Length: [len]
+Content-Type: application/sdp
+CSeq: [cseq] INVITE
+From: "02112"<sip:02112@ims.kt.com>;tag=[pid]-[call_number]
+Max-Forwards: 69
+Min-SE: 60
+P-Asserted-Identity: "02112"<sip:02112@ims.kt.com>
+P-Charging-Vector: icid-value="sos.police-8190562";orig-ioi="sos.police"
+Privacy: none
+Session-Expires: 600;refresher=uac
+Supported: timer
+To: <tel:+82-1029211034>
+Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+P-TTA-VoLTE-Info: avchange
+
+v=0
+o=b9aa2154_5920_ute267f561b713 766707 766707 IN IP4 211.236.112.148
+s=Nable_NTS_G3
+c=IN IP[media_ip_type] [media_ip]
+t=0 0
+m=audio [media_port] RTP/AVP 98 101 99 102
+b=AS:41
+b=RS:0
+b=RR:2500
+a=rtpmap:98 AMR-WB/16000/1
+a=fmtp:98 mode-set=8; octet-align=1; mode-change-capability=2
+a=rtpmap:101 AMR/8000/1
+a=fmtp:101 mode-set=7; octet-align=1; mode-change-capability=2
+a=rtpmap:99 telephone-event/16000
+a=fmtp:99 0-15
+a=rtpmap:102 telephone-event/8000
+a=fmtp:102 0-15
+a=maxptime:60
+a=ptime:20
+a=sendrecv
+m=video [media_port+2] RTP/AVP 103 34
+b=AS:639
+b=RS:0
+b=RR:2500
+a=rtpmap:103 H264/90000
+a=fmtp:103 packetization-mode=1;profile-level-id=428016;sprop-parameter-sets=Z0LAHtoHgUZA,aM4PyA==
+a=framesize:103 480-640
+a=rtpmap:34 H263/90000
+a=fmtp:34 QCIF=1
+a=framesize:34 176-144
+a=framerate:15
+a=sendrecv
+
+]]>
+<action>
+<ereg regexp=".*" search_in="hdr" header="From:" assign_to="initFrom"/>
+<ereg regexp=".*" search_in="hdr" header="To:" assign_to="initTo"/>
+<ereg regexp="[[:digit:]]{1,}" search_in="hdr" header="CSeq:" assign_to="inviteCSeq"/>
+</action>
+</send>
+
+<recv response="100">
+</recv>
+
+<recv response="180" rrs="true">
+</recv>
+
+<recv response="200" rrs="true">
+</recv>
+
+<pause milliseconds="32"/>
+
+<send>
+<![CDATA[
+ACK [next_url] SIP/2.0
+Call-ID: [call_id]
+Contact: <sip:[local_ip]:[local_port];transport=UDP>
+Content-Length: 0
+CSeq: [$inviteCSeq] ACK
+From: [$initFrom]
+Max-Forwards: 69
+To: [$initTo][peer_tag_param]
+Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+
+]]>
+</send>
+
+<recv request="BYE">
+</recv>
+
+<pause milliseconds="23"/>
+
+<send>
+<![CDATA[
+SIP/2.0 200 OK
+Call-ID: [call_id]
+Content-Length: 0
+[last_CSeq:]
+From: [$initTo][peer_tag_param]
+To: [$initFrom]
+[last_Via:]
+
+]]>
+</send>
+
+</scenario>
