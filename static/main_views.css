@@ -473,64 +473,62 @@ a {
   height: 40px;
 }
 
+
 .project-boxes {
   margin: 0 -8px;
   overflow-y: auto;
 }
-
 .project-boxes.jsGridView {
   display: flex;
   flex-wrap: wrap;
 }
-
 .project-boxes.jsGridView .project-box-wrapper {
-  width: 85%;
-  height: 80%;
+  width: 33.3%;
 }
-
 .project-boxes.jsListView .project-box {
   display: flex;
   border-radius: 10px;
   position: relative;
 }
-
-.project-boxes.jsListView .project-box>* {
+.project-boxes.jsListView .project-box > * {
   margin-right: 24px;
 }
-
 .project-boxes.jsListView .more-wrapper {
   position: absolute;
   right: 16px;
   top: 16px;
 }
-
 .project-boxes.jsListView .project-box-content-header {
   order: 1;
   max-width: 120px;
 }
-
 .project-boxes.jsListView .project-box-header {
   order: 2;
 }
-
+.project-boxes.jsListView .project-box-footer {
+  order: 3;
+  padding-top: 0;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.project-boxes.jsListView .project-box-footer:after {
+  display: none;
+}
 .project-boxes.jsListView .participants {
   margin-bottom: 8px;
 }
-
 .project-boxes.jsListView .project-box-content-header p {
   text-align: left;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-
-.project-boxes.jsListView .project-box-header>span {
+.project-boxes.jsListView .project-box-header > span {
   position: absolute;
   bottom: 16px;
   left: 16px;
   font-size: 12px;
 }
-
 .project-boxes.jsListView .box-progress-wrapper {
   order: 3;
   flex: 1;
@@ -542,7 +540,6 @@ a {
   padding: 16px;
   background-color: var(--main-color-card);
 }
-
 .project-box-header {
   display: flex;
   align-items: center;
@@ -550,31 +547,22 @@ a {
   margin-bottom: 16px;
   color: var(--main-color);
 }
-
 .project-box-header span {
   color: #4A4A4A;
   opacity: 0.7;
   font-size: 14px;
   line-height: 16px;
 }
-
 .project-box-content-header {
   text-align: center;
   margin-bottom: 16px;
 }
-
 .project-box-content-header p {
   margin: 0;
 }
-
-
 .project-box-wrapper {
   padding: 8px;
   transition: 0.2s;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3개의 열 설정 */
-  gap: 16px; /* 박스 간의 간격 */
-  
 }
 
 .project-btn-more {
@@ -624,7 +612,6 @@ a {
   height: 4px;
   border-radius: 6px;
 }
-
 .box-progress-bar {
   width: 100%;
   height: 4px;
@@ -633,20 +620,72 @@ a {
   background-color: #fff;
   margin: 8px 0;
 }
-
 .box-progress-header {
   font-size: 14px;
   font-weight: 700;
   line-height: 16px;
   margin: 0;
 }
-
 .box-progress-percentage {
   text-align: right;
   margin: 0;
   font-size: 14px;
   font-weight: 700;
   line-height: 16px;
+}
+
+.project-box-footer {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 16px;
+  position: relative;
+}
+.project-box-footer:after {
+  content: "";
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.6);
+  width: calc(100% + 32px);
+  top: 0;
+  left: -16px;
+  height: 1px;
+}
+
+.participants {
+  display: flex;
+  align-items: center;
+}
+.participants img {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  overflow: hidden;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.participants img:not(:first-child) {
+  margin-left: -8px;
+}
+
+.add-participant {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.6);
+  margin-left: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+.days-left {
+  background-color: rgba(255, 255, 255, 0.6);
+  font-size: 12px;
+  border-radius: 20px;
+  flex-shrink: 0;
+  padding: 6px 16px;
+  font-weight: 700;
 }
 
 .mode-switch.active .moon {
@@ -673,8 +712,7 @@ a {
     width: 50%;
   }
 
-  .status-number,
-  .status-type {
+  .status-number, .status-type {
     font-size: 14px;
   }
 
@@ -687,7 +725,6 @@ a {
     margin-right: 0;
   }
 }
-
 @media screen and (max-width: 880px) {
   .messages-section {
     transform: translateX(100%);
@@ -698,7 +735,6 @@ a {
     height: 100%;
     width: 100%;
   }
-
   .messages-section .messages-close {
     display: block;
   }
@@ -707,24 +743,16 @@ a {
     display: flex;
   }
 }
-
 @media screen and (max-width: 720px) {
-
-  .app-name,
-  .profile-btn span {
+  .app-name, .profile-btn span {
     display: none;
   }
 
-  .add-btn,
-  .notification-btn,
-  .mode-switch {
+  .add-btn, .notification-btn, .mode-switch {
     width: 20px;
     height: 20px;
   }
-
-  .add-btn svg,
-  .notification-btn svg,
-  .mode-switch svg {
+  .add-btn svg, .notification-btn svg, .mode-switch svg {
     width: 16px;
     height: 16px;
   }
@@ -733,7 +761,6 @@ a {
     margin-left: 4px;
   }
 }
-
 @media screen and (max-width: 520px) {
   .projects-section {
     overflow: auto;
@@ -743,8 +770,7 @@ a {
     overflow-y: visible;
   }
 
-  .app-sidebar,
-  .app-icon {
+  .app-sidebar, .app-icon {
     display: none;
   }
 
@@ -752,8 +778,7 @@ a {
     padding: 16px 12px 24px 12px;
   }
 
-  .status-number,
-  .status-type {
+  .status-number, .status-type {
     font-size: 10px;
   }
 
@@ -788,14 +813,13 @@ a {
   }
 
   .projects-section-header p,
-  .projects-section-header .time {
+.projects-section-header .time {
     font-size: 18px;
   }
 
   .status-type {
     padding-right: 4px;
   }
-
   .status-type:after {
     display: none;
   }
@@ -818,7 +842,7 @@ a {
     line-height: 16px;
   }
 
-  .project-boxes.jsListView .project-box-header>span {
+  .project-boxes.jsListView .project-box-header > span {
     font-size: 10px;
   }
 
@@ -836,7 +860,7 @@ a {
     text-align: center;
   }
 
-  .project-boxes.jsListView .project-box>* {
+  .project-boxes.jsListView .project-box > * {
     margin-right: 10px;
   }
 

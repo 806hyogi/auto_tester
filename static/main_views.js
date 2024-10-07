@@ -212,3 +212,15 @@ function submitProject(){
         console.error('Error:', error);
     });
 }
+
+document.querySelector('.view-btn.list-view').addEventListener('click', function() {
+    const projectBoxes = document.querySelector('.project-boxes');
+    projectBoxes.classList.remove('jsGridView');
+    projectBoxes.classList.add('jsListView');
+});
+
+document.querySelector('.view-btn.grid-view').addEventListener('click', function() {
+    const projectBoxes = document.querySelector('.project-boxes');
+    projectBoxes.classList.remove('jsListView');
+    projectBoxes.classList.add('jsGridView');
+});

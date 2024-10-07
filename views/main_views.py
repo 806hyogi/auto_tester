@@ -51,6 +51,7 @@ def get_projects():
             profile_data = json.load(f)
         user_projects = profile_data.get(username, {}).get('projects', [])
         return jsonify(success=True, projects=user_projects)
+
     except Exception as e:
         return jsonify(success=False, message=f'프로필 파일을 읽는 중 오류가 발생했습니다. {str(e)}')
 
