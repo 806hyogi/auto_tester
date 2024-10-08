@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script
+        src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-2c7831bb44f98c1391d6a4ffda0e1fd302503391ca806e7fcc7b9b87197aec26.js"></script>
+    <title>auto test</title>
+    <link rel="canonical" href="https://codepen.io/EvyatarDa/pen/waKXMd">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Raleway'>
+    <link rel="stylesheet" href="../static/main_views.css"> <!-- main_views.css -->
+    <script>
+        window.console = window.console || function (t) { };
+    </script>
+</head>
+
+<body translate="no">
+    <div class="app-container">
+        <div class="app-header">
+            {% include 'layout/header.html' %}
+        </div>
+        <div class="app-content">
+            <div class="app-sidebar">
+                {% include 'layout/sidebar.html' %}
+            </div>
+            <div class="projects-section">
+                <div class="projects-section-header">
+                    {% block projects_section_header %}{% endblock %}
+                </div>
+                <div class="projects-section-body">
+                    {% block projects_section_body %}{% endblock %}
+                </div>
+            </div>
+            <!-- 테스트 현황 -->
+        </div>
+    </div>
+
+    <!-- 로그인 다이얼로그 -->
+    <div id="loginDialog" class="dialog">
+        <div class="login">
+            <div class="form">
+                <span class="close" onclick="closeDialog()">&times;</span>
+                <h2>Welcome</h2>
+                <form onsubmit="login(); return false;">
+                    <input type="text" placeholder="Username" id="username">
+                    <input type="password" placeholder="Password" id="password">
+                    <input type="submit" value="Sign In" class="submit">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- 로그아웃 다이얼로그 -->
+    <div id="logoutDialog" class="dialog">
+        <div class="logout">
+            <div class="form">
+                <span class="close" onclick="closeDialog()">&times;</span>
+                <h2>로그아웃</h2>
+                <button class="logout_btn" onclick="logout()">로그아웃</button>
+                <button class="cancel_btn" onclick="closeDialog()">취소</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 프로젝트 생성 다이얼로그 -->
+
+
+    <script id="rendered-js">
+        document.addEventListener('DOMContentLoaded', function () {
+            var modeSwitch = document.querySelector('.mode-switch');
+
+            modeSwitch.addEventListener('click', function () {
+                document.documentElement.classList.toggle('dark');
+                modeSwitch.classList.toggle('active');
+            });
+
+            var listView = document.querySelector('.list-view');
+            var gridView = document.querySelector('.grid-view');
+            var projectsList = document.querySelector('.project-boxes');
+
+            listView.addEventListener('click', function () {
+                gridView.classList.remove('active');
+                listView.classList.add('active');
+                projectsList.classList.remove('jsGridView');
+                projectsList.classList.add('jsListView');
+            });
+
+            gridView.addEventListener('click', function () {
+                gridView.classList.add('active');
+                listView.classList.remove('active');
+                projectsList.classList.remove('jsListView');
+                projectsList.classList.add('jsGridView');
+            });
+
+            document.querySelector('.messages-btn').addEventListener('click', function () {
+                document.querySelector('.messages-section').classList.add('show');
+            });
+
+            document.querySelector('.messages-close').addEventListener('click', function () {
+                document.querySelector('.messages-section').classList.remove('show');
+            });
+        });
+        //# sourceURL=pen.js
+    </script>
+    <script src="../static/main_views.js"></script><!-- main_view.js 파일 링크 -->
+</body>
+
+</html>
